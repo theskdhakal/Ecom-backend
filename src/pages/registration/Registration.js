@@ -35,26 +35,22 @@ const Registration = () => {
 
   return (
     <AdminLayout>
-      <div>
-        <h2>Register new admin</h2>
-        <hr />
-        <Form
-          onSubmit={handleSubmit}
-          className="border p-3 rounded m-3 shadow-lg"
-        >
-          {userRegisterInpute.map((item, i) => (
-            <CustomInput key={i} {...item} onChange={handleOnChange} />
-          ))}
+      <h2>Register new admin</h2>
+      <hr />
+      <Form
+        onSubmit={handleSubmit}
+        className="border p-3 rounded m-3 shadow-lg"
+      >
+        {userRegisterInpute.map((item, i) => (
+          <CustomInput key={i} {...item} onChange={handleOnChange} />
+        ))}
 
-          <div className="d-grid mt-3">
-            <Button variant="primary" type="submit">
-              Register Now!
-            </Button>
-          </div>
-        </Form>
-
-        <a href="/">Login now</a>
-      </div>
+        <div className="d-grid mt-3">
+          <Button variant="primary" type="submit">
+            Register Now!
+          </Button>
+        </div>
+      </Form>
     </AdminLayout>
   );
 };

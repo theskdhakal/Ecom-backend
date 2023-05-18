@@ -1,13 +1,14 @@
 import React from "react";
+import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const SidebarMenu = () => {
   return (
     <div>
       <div className="top fs-3 text-center">Admin CMS</div>
-
-      <div className="list ">
-        <ul className="list-unstyled sidebarMenu">
+      <hr />
+      <div className="list">
+        <ul className="list-unstyled fw-bolder sidebar-menu">
           <li>
             <Link to="/dashboard" className="nav-link">
               Dashboard
@@ -24,13 +25,18 @@ export const SidebarMenu = () => {
             </Link>
           </li>
           <li>
-            <Link to="/payment" className="nav-link">
+            <Link to="/payment-option" className="nav-link">
               Payment Option
             </Link>
           </li>
           <li>
+            <Link to="/order" className="nav-link">
+              Order
+            </Link>
+          </li>
+          <li>
             <Link to="/review" className="nav-link">
-              Review
+              Revies
             </Link>
           </li>
           <li>
@@ -40,12 +46,7 @@ export const SidebarMenu = () => {
           </li>
           <li>
             <Link to="/register" className="nav-link">
-              Add new admin
-            </Link>
-          </li>
-          <li>
-            <Link to="/order" className="nav-link">
-              Order
+              Create New admin
             </Link>
           </li>
         </ul>

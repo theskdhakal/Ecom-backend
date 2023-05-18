@@ -1,14 +1,13 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Header } from "../../components/layout/Header";
 import { Footer } from "../../components/layout/Footer";
 
 import { Button, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/customInpute/CustomInput";
 
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { loginAdminAction } from "../user-redux/userAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -16,6 +15,12 @@ const Login = () => {
 
   const emailRef = useRef("");
   const passwordRef = useRef("");
+
+  const { user } = useSelector((state) => state.admin);
+
+  useEffect(() => {
+    user?.uid && navigate("/dashboard");
+  }, [user?.uid, navigate]);
 
   const handleOnLogin = async () => {
     const email = emailRef.current.value;

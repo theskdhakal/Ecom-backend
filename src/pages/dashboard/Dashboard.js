@@ -3,9 +3,10 @@ import { AdminLayout } from "../../components/layout/AdminLayout";
 
 const Dashboard = () => {
   return (
-    <div>
-      <AdminLayout>Dashboard</AdminLayout>
-    </div>
+    <AdminLayout>
+      <div className="page-title mt-4">Dashboard</div>
+      <hr />
+    </AdminLayout>
   );
 };
 

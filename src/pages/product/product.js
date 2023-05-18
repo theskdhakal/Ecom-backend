@@ -1,10 +1,13 @@
 import React from "react";
 import { AdminLayout } from "../../components/layout/AdminLayout";
 
-export const Product = () => {
+const Product = () => {
   return (
     <AdminLayout>
-      <div className="page-title ">Product</div>
+      <div className="page-title mt-4">Product</div>
+      <hr />
     </AdminLayout>
   );
 };
+
+export default Product;

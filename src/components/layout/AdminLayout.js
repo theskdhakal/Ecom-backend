@@ -14,16 +14,16 @@ export const AdminLayout = ({ children }) => {
           <Row>
             <Col
               xs={4}
-              className="bg-dark text-light ps-4"
+              className="bg-dark text-light ps-4 pt-3"
               style={{ minHeight: "100vh", minWidth: "200px" }}
             >
-              {/*sidebar menu */}
+              {/* sidebar menu */}
               <SidebarMenu />
             </Col>
-
             <Col>{children}</Col>
           </Row>
         </Container>
+
         <Footer />
       </div>
     </div>

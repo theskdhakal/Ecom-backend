@@ -47,3 +47,12 @@ export const userRegisterInpute = [
     required: true,
   },
 ];
+export const newCategory = [
+  {
+    label: "Name",
+    name: "name",
+    type: "text",
+    placeholder: "Electronic",
+    required: true,
+  },
+];
