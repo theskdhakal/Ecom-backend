@@ -3,7 +3,7 @@ import { AdminLayout } from "../../components/layout/AdminLayout";
 import { newCategory } from "../../assets/inputFieldsList";
 
 import { CustomInput } from "../../components/customInpute/CustomInput";
-import { Button, Col, Form, Row, useAccordionButton } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
 import slugify from "slugify";
 import { useDispatch } from "react-redux";

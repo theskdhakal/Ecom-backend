@@ -7,10 +7,19 @@ import { BiEdit } from "react-icons/bi";
 import { ImExit } from "react-icons/im";
 import { AiFillDashboard } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebase-config";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../pages/user-redux/userSlice";
 
 export const Header = () => {
+  const dispatch = useDispatch();
   const handleOnLogout = () => {
-    alert("to do logout");
+    // logout
+    signOut(auth).then(() => {
+      // rest user in our state
+      dispatch(setUser({}));
+    });
   };
   return (
     <Navbar bg="dark" variant="dark" expand="md">

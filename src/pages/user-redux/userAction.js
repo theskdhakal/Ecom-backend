@@ -15,7 +15,6 @@ export const getUserAction = (uid) => async (dispatch) => {
   const userRef = doc(db, USERSTABLE, uid);
   const userSnap = await getDoc(userRef);
 
-  console.log(userSnap);
   if (userSnap.exists()) {
     const user = userSnap.data();
 
