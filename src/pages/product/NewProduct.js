@@ -16,7 +16,7 @@ const initialState = { status: "inactive", price: 0, name: "" };
 const NewProduct = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
-  const [images, setImages] = useState();
+  const [images, setImages] = useState([]);
   const [progress, setProgress] = useState(0);
 
   const { category } = useSelector((state) => state.cat);
@@ -32,28 +32,25 @@ const NewProduct = () => {
       value = checked ? "active" : "inactive";
     }
 
-    console.log(name, value, checked);
-
     setForm({
       ...form,
       [name]: value,
     });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const slug = slugify(form.name, {
       trim: true,
       lower: true,
     });
+
     /// first we need to upload the image to the firebase get the linke, add that linke in the product table.
 
     // uplodad photo and get url
     //product tbale update with image
-    console.log(images);
 
-    //single image upload to storage and get the single url link and add with the product.
-
+    //METHOD #1 single image upload to storage and get the sing url linke and add with the product
     // if (images) {
     //   //crate the file upload path
     //   const storegeRef = ref(
@@ -85,13 +82,61 @@ const NewProduct = () => {
     //     }
     //   );
     // }
+
+    //METHOD #2 uploading multipl images and adding into the product
+
+    // loop through the images and exc uplode code with in Promise and return the url in promis array
+
+    if (images.length) {
+      const img = images.map((image) => {
+        return new Promise((resolve, reject) => {
+          // format the image name and path to upload
+          const storegeRef = ref(
+            storage,
+            `/product/images/${Date.now()}-${image.name}`
+          );
+
+          //upload the image
+          const uploadImg = uploadBytesResumable(storegeRef, image);
+
+          uploadImg.on(
+            "state_changed",
+            (snapshot) => {
+              const percentage =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+              setProgress(percentage);
+            },
+            (error) => {
+              console.log(error);
+            },
+            async () => {
+              await getDownloadURL(uploadImg.snapshot.ref).then((url) => {
+                resolve(url);
+              });
+            }
+          );
+        });
+      });
+
+      const imgUrlList = await Promise.all(img);
+
+      dispatch(
+        addNewProduct({ ...form, slug, imgUrlList, thumbnail: imgUrlList[0] })
+      );
+    }
+
+    // resolve the array to get the actual ulrs
+    // exc add product function
   };
 
   const handleOnImageChange = (e) => {
     const { files } = e.target;
 
-    console.log(files[0]);
-    setImages(files[0]);
+    console.log(files);
+
+    console.log([...files]);
+    setImages([...files]);
   };
 
   const inputFields = [
@@ -201,7 +246,7 @@ const NewProduct = () => {
             <Form.Control
               type="file"
               name="image"
-              // multiple
+              multiple
               onChange={handleOnImageChange}
             />
           </Form.Group>

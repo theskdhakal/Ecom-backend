@@ -4,48 +4,55 @@ import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProductsAction } from "../../pages/product/productAction";
+import { CustomInput } from "../customInpute/CustomInput";
 
-export const ProdctTable = () => {
+export const PaymentOptions = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.prod);
 
-  useEffect(() => {
-    dispatch(fetchProductsAction());
-  }, []);
+  const methods = [
+    {
+      name: "Master-Card",
+      surcharge: "0.2%",
+      description: "abcd",
+    },
+    {
+      name: "PayPal",
+      surcharge: "0.0%",
+      description: "wxyz",
+    },
+    {
+      name: "AfterPay",
+      surcharge: "1%",
+      description: "lmnop",
+    },
+  ];
 
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
           <th>#</th>
-          <th>Thumbnail</th>
-          <th>Status</th>
+
           <th>Name</th>
-          <th>Price</th>
-          <th>QTY</th>
-          <th>Sale Price</th>
-          <th>Sale Start Date</th>
-          <th>Sale End Date</th>
-          <th>Edit</th>
+          <th>surcharge</th>
+
+          <th>Description</th>
+          <th>Choose the paymnet method</th>
         </tr>
       </thead>
       <tbody>
-        {products.map((item, i) => (
-          <tr key={i}>
+        {methods.map((item, i) => (
+          <tr>
             <td>{i + 1}</td>
-            <td>
-              <img src={item.thumbnail} alt="" width={"100px"} />
-            </td>
-            <td>{item.status}</td>
+
             <td>{item.name}</td>
-            <td>{item.price}</td>
-            <td>{item.qty}</td>
-            <td>{item.salesPrice}</td>
-            <td>{item.salesStart}</td>
-            <td>{item.salesEnd}</td>
+            <td>{item.surcharge}</td>
+            <td>{item.description}</td>
+
             <td>
               <Link to={`/product/${item.id}`}>
-                <Button variant="warning">Edit</Button>
+                <Button variant="primary">Select</Button>
               </Link>
             </td>
           </tr>
